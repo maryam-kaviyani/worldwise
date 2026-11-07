@@ -85,3 +85,25 @@ This project uses a demo authentication flow for learning purposes. It is not in
 ## Project Purpose
 
 This project was developed as part of my learning journey in React, with a focus on component-based development, state management, routing, API integration, and interactive maps.
+
+## Screenshots
+
+### Home Page
+
+![WorldWise Home Page](public/screenshots/home.png)
+
+### Cities List
+
+![WorldWise Cities](public/screenshots/cities.png)
+
+### Countries List
+
+![WorldWise Countries](public/screenshots/countries.png)
+
+### City Details
+
+![WorldWise City Details](public/screenshots/city-details.png)
+
+### Add City
+
+![WorldWise Add City](public/screenshots/add-city.png)
