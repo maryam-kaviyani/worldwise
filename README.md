@@ -1,105 +1,87 @@
-WorldWise – Travel Tracking App
+# WorldWise – Travel Tracking App
 
 WorldWise is a travel tracking application built with React. It allows users to keep track of the cities and countries they have visited, view their locations on an interactive map, and save their travel experiences.
 
-Features
+## Features
 
-Interactive map powered by React Leaflet and Leaflet.
+- Interactive map powered by React Leaflet and Leaflet.
+- Add and remove visited cities.
+- Select locations on the map.
+- View city details and travel dates.
+- Browse saved cities and countries.
+- Client-side routing with React Router.
+- Protected routes with a demo authentication flow.
+- State management using Context API and useReducer.
+- Fetch and store city data using a JSON Server API.
 
-Add and remove visited cities.
+## Tech Stack
 
-Select locations on the map.
+- React
+- Vite
+- React Router DOM
+- Context API and useReducer
+- React Leaflet and Leaflet
+- JSON Server
+- CSS
 
-View city details and travel dates.
+## Getting Started
 
-Browse saved cities and countries.
+### Prerequisites
 
-Client-side routing with React Router.
+- Node.js
+- npm
 
-Protected routes with a demo authentication flow.
-
-State management using Context API and useReducer.
-
-Fetch and store city data using a JSON Server API.
-
-Tech Stack
-
-React
-
-Vite
-
-React Router DOM
-
-Context API and useReducer
-
-React Leaflet and Leaflet
-
-JSON Server
-
-CSS
-
-Getting Started
-
-Prerequisites
-
-Node.js
-
-npm
-
-Installation
+### Installation
 
 Clone the repository:
 
-git clone https://github.com/maryam-kaviyani/worldwise.git
+    git clone https://github.com/maryam-kaviyani/worldwise.git
 
 Navigate to the project directory:
 
-cd worldwise
+    cd worldwise
 
 Install dependencies:
 
-npm install
+    npm install
 
-Run the Application
+### Run the Application
 
 Start the JSON Server in a separate terminal:
 
-npm run server
+    npm run server
 
 Start the Vite development server in another terminal:
 
-npm run dev
+    npm run dev
 
 Open the local URL displayed in your terminal to view the application.
 
-Note: Both the JSON Server and Vite development server must be running for the application to work correctly.
+**Note:** Both the JSON Server and Vite development server must be running for the application to work correctly.
 
-Network Requirements
+## Network Requirements
 
 The application uses external map tile services to display the interactive map.
 
 Depending on your network or geographic location, a VPN connection may be required to load the map correctly.
 
-Important:
+**Important:**
 
-The JSON Server API runs locally and does not require a VPN.
+- The JSON Server API runs locally and does not require a VPN.
+- Adding and saving cities uses the local JSON Server.
+- A stable internet connection is required to load external map tiles.
+- If the map does not load, check your internet connection and VPN availability.
 
-Adding and saving cities uses the local JSON Server.
-
-A stable internet connection is required to load external map tiles.
-
-If the map does not load, check your internet connection and VPN availability.
-
-Build
+## Build
 
 To create a production build:
 
-npm run build
+    npm run build
 
-Authentication
+## Authentication
 
 This project uses a demo authentication flow for learning purposes. It is not intended for production authentication or secure user management.
 
-Project Purpose
+## Project Purpose
 
 This project was developed as part of my learning journey in React, with a focus on component-based development, state management, routing, API integration, and interactive maps.
