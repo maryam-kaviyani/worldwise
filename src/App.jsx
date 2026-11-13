@@ -10,13 +10,6 @@ import City from "./components/City";
 import Form from "./components/Form";
 import SpinnerFullPage from "./components/SpinnerFullPage";
 
-// import Homepage from "./pages/Homepage";
-// import Pricing from "./pages/Pricing";
-// import Product from "./pages/Product";
-// import PageNotFound from "./pages/PageNotFound";
-// import AppLayout from "./pages/AppLayout";
-// import Login from "./pages/Login";
-
 const Homepage = lazy(() => import("./pages/Homepage"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Product = lazy(() => import("./pages/Product"));
@@ -26,11 +19,9 @@ const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 function App() {
   return (
-    // <h1>hello world</h1>
-
     <AuthProvider>
       <CitiesProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Suspense fallback={<SpinnerFullPage />}>
             <Routes>
               <Route index element={<Homepage />} />

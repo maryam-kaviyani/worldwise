@@ -38,18 +38,18 @@ function Form() {
 
   useEffect(
     function () {
-      if (!lat && !lng) return;
+      if (lat == null || lng == null) return;
       async function fetchCityData() {
         try {
           setIsLoadingGeocoding(true);
           setGeocodingError("");
           const res = await fetch(
-            `${BASE_URL}?latitude=${lat}&longitude=${lng}`
+            `${BASE_URL}?latitude=${lat}&longitude=${lng}`,
           );
           const data = await res.json();
           if (!data.countryCode)
             throw new Error(
-              "That doesn't to seem to be a city. Click somewhere else.😉"
+              "That doesn't to seem to be a city. Click somewhere else.😉",
             );
 
           setCityName(data.city || data.locality || "");
@@ -63,13 +63,14 @@ function Form() {
       }
       fetchCityData();
     },
-    [lat, lng]
+    [lat, lng],
   );
   async function handleSubmit(e) {
     e.preventDefault();
     if (!cityName || !date) return;
 
     const newCity = {
+      id: crypto.randomUUID(),
       cityName,
       country,
       emoji,
@@ -81,7 +82,7 @@ function Form() {
     navigate("/app/cities");
   }
   if (isLoadingGeocoding) return <Spinner />;
-  if (!lat && !lng)
+  if (lat == null || lng == null)
     return <Message message={"choose a city by clicking on the map"} />;
   if (geocodingError) return <Message message={geocodingError} />;
   return (

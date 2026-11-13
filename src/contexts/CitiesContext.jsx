@@ -6,6 +6,7 @@ import {
   useReducer,
 } from "react";
 
+const IS_PROD = import.meta.env.PROD;
 const BASE_URL = "http://localhost:9000";
 
 const CitiesContext = createContext();
@@ -55,7 +56,7 @@ function reducer(state, action) {
 function CitiesProvider({ children }) {
   const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
     reducer,
-    initialState
+    initialState,
   );
   // const [cities, setCities] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
@@ -64,8 +65,12 @@ function CitiesProvider({ children }) {
   const getCity = useCallback(
     async function getCity(id) {
       if (id === currentCity.id) return;
-      console.log("current", currentCity.id, typeof currentCity.id);
-      console.log("id", id, typeof id);
+      if (IS_PROD) {
+        const city = cities.find((city) => city.id === id);
+
+        dispatch({ type: "city/loaded", payload: city });
+        return;
+      }
       dispatch({ type: "loading" });
       try {
         const res = await fetch(`${BASE_URL}/cities/${id}`);
@@ -78,17 +83,41 @@ function CitiesProvider({ children }) {
         });
       }
     },
-    [currentCity.id]
+    [currentCity.id, cities],
   );
 
   useEffect(function () {
     async function fetchCities() {
       dispatch({ type: "loading" });
+
       try {
+        if (IS_PROD) {
+          const storedCities = localStorage.getItem("cities");
+
+          if (storedCities !== null) {
+            dispatch({
+              type: "cities/loaded",
+              payload: JSON.parse(storedCities),
+            });
+            return;
+          }
+
+          localStorage.setItem("cities", JSON.stringify([]));
+
+          dispatch({
+            type: "cities/loaded",
+            payload: [],
+          });
+          return;
+        }
+
         const res = await fetch(`${BASE_URL}/cities`);
         const data = await res.json();
 
-        dispatch({ type: "cities/loaded", payload: data });
+        dispatch({
+          type: "cities/loaded",
+          payload: data,
+        });
       } catch {
         dispatch({
           type: "rejected",
@@ -96,17 +125,33 @@ function CitiesProvider({ children }) {
         });
       }
     }
+
     fetchCities();
   }, []);
 
   async function createCity(newCity) {
     dispatch({ type: "loading" });
+
     try {
+      if (IS_PROD) {
+        const updatedCities = [...cities, newCity];
+
+        localStorage.setItem("cities", JSON.stringify(updatedCities));
+
+        dispatch({
+          type: "city/created",
+          payload: newCity,
+        });
+
+        return;
+      }
+
       const res = await fetch(`${BASE_URL}/cities`, {
         method: "POST",
         body: JSON.stringify(newCity),
         headers: { "Content-type": "application/json" },
       });
+
       const data = await res.json();
 
       dispatch({ type: "city/created", payload: data });
@@ -117,12 +162,24 @@ function CitiesProvider({ children }) {
       });
     }
   }
+
   async function deleteCity(id) {
     dispatch({ type: "loading" });
+
     try {
+      if (IS_PROD) {
+        const updatedCities = cities.filter((city) => city.id !== id);
+
+        localStorage.setItem("cities", JSON.stringify(updatedCities));
+
+        dispatch({ type: "city/deleted", payload: id });
+        return;
+      }
+
       await fetch(`${BASE_URL}/cities/${id}`, {
         method: "DELETE",
       });
+
       dispatch({ type: "city/deleted", payload: id });
     } catch {
       dispatch({
@@ -131,6 +188,7 @@ function CitiesProvider({ children }) {
       });
     }
   }
+
   return (
     <CitiesContext.Provider
       value={{
