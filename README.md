@@ -1,18 +1,20 @@
 # WorldWise – Travel Tracking App
 
-WorldWise is a travel tracking application built with React. It allows users to keep track of the cities and countries they have visited, view their locations on an interactive map, and save their travel experiences.
+WorldWise is a travel tracking application built with React. It allows users to keep track of the cities and countries they have visited, explore their locations on an interactive map, and save their travel experiences.
 
 ## Features
 
 - Interactive map powered by React Leaflet and Leaflet.
 - Add and remove visited cities.
-- Select locations on the map.
+- Select locations directly on the map.
 - View city details and travel dates.
 - Browse saved cities and countries.
 - Client-side routing with React Router.
 - Protected routes with a demo authentication flow.
 - State management using Context API and useReducer.
 - Data persistence using JSON Server in development and localStorage in production.
+- Persistent demo authentication across page refreshes.
+- Support for direct navigation and page refreshes on deployed routes.
 
 ## Tech Stack
 
@@ -36,37 +38,27 @@ WorldWise is a travel tracking application built with React. It allows users to 
 
 Clone the repository:
 
-```bash
-git clone https://github.com/maryam-kaviyani/worldwise.git
-```
+    git clone https://github.com/maryam-kaviyani/worldwise.git
 
 Navigate to the project directory:
 
-```bash
-cd worldwise
-```
+    cd worldwise
 
 Install dependencies:
 
-```bash
-npm install
-```
+    npm install
 
 ### Run the Application
 
 Start the JSON Server in a separate terminal:
 
-```bash
-npm run server
-```
+    npm run server
 
 Start the Vite development server in another terminal:
 
-```bash
-npm run dev
-```
+    npm run dev
 
-Open the local URL displayed in your terminal to view the application.
+Open the local URL displayed in your terminal.
 
 **Note:** Both the JSON Server and Vite development server must be running for the development version to work correctly.
 
@@ -92,6 +84,29 @@ In production deployments (Vercel and GitHub Pages):
 
 **Important:** Data is stored locally in the browser, not in a shared database. Therefore, cities saved on Vercel are not automatically available on GitHub Pages or on another browser or device. Clearing the browser's site data may also remove saved cities.
 
+## Authentication
+
+This project uses a demo authentication flow for learning purposes.
+
+- Authentication state is stored in localStorage.
+- The user remains authenticated after refreshing the page.
+- Logging out removes the stored authentication data.
+- This implementation is for demonstration purposes only and is not suitable for production authentication or secure user management.
+
+## Deployment
+
+The application is configured for deployment on both platforms:
+
+- **GitHub Pages:** https://maryam-kaviyani.github.io/worldwise/
+- **Vercel:** https://worldwise-alpha-green.vercel.app/
+
+The project uses environment-based configuration to support the different base paths required by each platform.
+
+- Vite's base path is configured for GitHub Pages and Vercel.
+- React Router uses the configured base URL to handle application routes.
+- GitHub Pages uses a `404.html` fallback to provide a fallback for application routes and support page refreshes on nested routes.
+- Vercel uses rewrite rules to serve the React application for frontend routes.
+
 ## Network Requirements
 
 The application uses external map tile services to display the interactive map.
@@ -108,25 +123,17 @@ Depending on your network or geographic location, a VPN connection may be requir
 
 To create a production build:
 
-```bash
-npm run build
-```
+    npm run build
 
 To preview the production build locally:
 
-```bash
-npm run preview
-```
+    npm run preview
 
 Open the preview URL displayed in your terminal to test the production version.
 
-## Authentication
-
-This project uses a demo authentication flow for learning purposes. It is not intended for production authentication or secure user management.
-
 ## Project Purpose
 
-This project was developed as part of my learning journey in React, with a focus on component-based development, state management, routing, API integration, interactive maps, and data persistence.
+This project was developed as part of my React learning journey, with a focus on component-based development, state management, client-side routing, API integration, interactive maps, authentication flow, and data persistence.
 
 ## Screenshots
 
